@@ -15,9 +15,8 @@ planning functionality.
 
 ## Program description
 
-The application will implement a simple interactive game where the computer will try to guess the animal,
-that the person has in mind with the help of yes or no questions. During the game, the computer will extend
-its knowledge base by learning new facts about animals and using this information in the next game.
+The application will support you in analyzing your expenses and estimating the income, which sometimes may be difficult. 
+You can create your own personal budget manager that counts the ins and outs and helps control the finances.
 
 ## Project completion
 
