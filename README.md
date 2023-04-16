@@ -32,3 +32,5 @@ Sources for all project tasks (5 stages) with tests and configurations.
 
 10.04.23 Stage 1 completed. Read in list of purchases and calculate total price.
 
+15.04.23 Stage 2 completed. Add a main menu with functionality to add income, purchases, show balance
+and sum purchases.

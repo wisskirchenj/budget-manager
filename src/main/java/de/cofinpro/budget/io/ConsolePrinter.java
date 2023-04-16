@@ -20,4 +20,3 @@ public class ConsolePrinter {
         log.error(message, arguments);
     }
 }
-
