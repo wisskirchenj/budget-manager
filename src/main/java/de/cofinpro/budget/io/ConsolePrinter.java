@@ -15,8 +15,4 @@ public class ConsolePrinter {
     public final void printWithPrice(String text, Double price) {
         log.info("{} ${}", text, "%.2f".formatted(price));
     }
-
-    public void printError(String message, Object... arguments) {
-        log.error(message, arguments);
-    }
 }
