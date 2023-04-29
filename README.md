@@ -11,7 +11,7 @@ planning functionality.
 - Lombok
 - Slf4j
 - Tests with Junit-Jupiter and Mockito
-- Gradle 8.0.2
+- Gradle 8.1.1
 
 ## Program description
 
@@ -34,3 +34,6 @@ Sources for all project tasks (5 stages) with tests and configurations.
 
 15.04.23 Stage 2 completed. Add a main menu with functionality to add income, purchases, show balance
 and sum purchases.
+
+28.04.23 Stage 3 completed. Generic menu-controller framework based on Enum Choice Types. Full test coverage
+Bump to Gradle 8.1.1 and Java 20.

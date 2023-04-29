@@ -12,7 +12,7 @@ public class ConsolePrinter {
         log.info(message, arguments);
     }
 
-    public final void printWithPrice(String text, Double price) {
+    public final void printWithPrice(String text, double price) {
         log.info("{} ${}", text, "%.2f".formatted(price));
     }
 }

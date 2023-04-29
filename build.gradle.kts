@@ -6,17 +6,12 @@ application {
     mainClass.set("de.cofinpro.budget.BudgetManagerApp")
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(20))
-    }
+java.toolchain {
+    languageVersion.set(JavaLanguageVersion.of(20))
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
+configurations["compileOnly"]
+    .extendsFrom(configurations["annotationProcessor"])
 
 group = "de.cofinpro"
 version = "0.1-SNAPSHOT"

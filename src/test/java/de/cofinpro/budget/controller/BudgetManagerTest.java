@@ -43,7 +43,7 @@ class BudgetManagerIT {
 
     @Test
     void whenPurchaseAdded_BalanceSubtracted() {
-        when(scanner.nextLine()).thenReturn("1", "1000.0", "2", "Apples", "15.15", "4", "0");
+        when(scanner.nextLine()).thenReturn("1", "1000.0", "2", "1", "Apples", "15.15", "5", "4", "0");
         budgetManager.run();
         verifyMenuTimes(4);
         verify(consolePrinter).printInfo("\nEnter income:");
@@ -53,9 +53,9 @@ class BudgetManagerIT {
 
     @Test
     void whenPurchasesAdded_ShowListHasPurchasesInOrder() {
-        when(scanner.nextLine()).thenReturn("2", "shoes", "1000.0", "2", "Apples", "15.15", "3", "0");
+        when(scanner.nextLine()).thenReturn("2", "2", "shoes", "1000.0", "1", "Apples", "15.15", "5", "3", "5", "6", "0");
         budgetManager.run();
-        verifyMenuTimes(4);
+        verifyMenuTimes(3);
         verify(consolePrinter, times(2)).printInfo("\nEnter purchase name:");
         verify(consolePrinter, times(2)).printInfo("Enter its price:");
         verify(consolePrinter, times(2)).printInfo("Purchase was added!");
@@ -70,12 +70,12 @@ class BudgetManagerIT {
         when(scanner.nextLine()).thenReturn("3", "0");
         budgetManager.run();
         verifyMenuTimes(2);
-        verify(consolePrinter).printInfo("The purchase list is empty");
+        verify(consolePrinter).printInfo("\n{}", "The purchase list is empty");
     }
 
     @Test
     void whenPurchasedOverBalance_BalanceZero() {
-        when(scanner.nextLine()).thenReturn("1", "10.0", "2", "shoes", "150.0", "4", "0");
+        when(scanner.nextLine()).thenReturn("1", "10.0", "2", "1", "shoes", "150.0", "5", "4", "0");
         budgetManager.run();
         verifyMenuTimes(4);
         verify(consolePrinter).printInfo("Income was added!");
