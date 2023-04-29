@@ -37,3 +37,6 @@ and sum purchases.
 
 28.04.23 Stage 3 completed. Generic menu-controller framework based on Enum Choice Types. Full test coverage
 Bump to Gradle 8.1.1 and Java 20.
+
+29.04.23 Stage 4 completed. Introduce BudgetState data class for application state. Serialize to file and
+deserialize on save and load menu options.

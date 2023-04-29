@@ -1,9 +1,11 @@
 package de.cofinpro.budget.model;
 
+import java.io.Serializable;
+
 /**
  * the immutable purchase model record
  */
-public record Purchase(String item, Category category, double price) {
+public record Purchase(String item, Category category, double price) implements Serializable {
 
     /**
      * convenience constructor for backwards compatibility with former stages, that knew no categories.

@@ -83,13 +83,6 @@ class BudgetManagerIT {
     }
 
     private void verifyMenuTimes(int times) {
-        verify(consolePrinter, times(times)).printInfo("""
-                                                
-                                                Choose your action:
-                                                1) Add income
-                                                2) Add purchase
-                                                3) Show list of purchases
-                                                4) Balance
-                                                0) Exit""");
+        verify(consolePrinter, times(times)).printInfo(budgetManager.getMenuText());
     }
 }

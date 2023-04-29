@@ -1,10 +1,10 @@
 package de.cofinpro.budget.controller;
 
 import de.cofinpro.budget.io.ConsolePrinter;
+import de.cofinpro.budget.model.BudgetState;
 import de.cofinpro.budget.model.Category;
 import de.cofinpro.budget.model.Purchase;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,11 +12,11 @@ import java.util.Scanner;
  */
 public class AddPurchaseController extends MenuLoopController<AddPurchaseController.Choice> {
 
-    private final List<Purchase> purchases;
+    private final BudgetState budgetState;
 
-    protected AddPurchaseController(ConsolePrinter consolePrinter, Scanner scanner, List<Purchase> purchases) {
+    protected AddPurchaseController(ConsolePrinter consolePrinter, Scanner scanner, BudgetState budgetState) {
         super(consolePrinter, scanner);
-        this.purchases = purchases;
+        this.budgetState = budgetState;
     }
 
     @Override
@@ -41,7 +41,8 @@ public class AddPurchaseController extends MenuLoopController<AddPurchaseControl
         var item = scanner.nextLine();
         printer.printInfo("Enter its price:");
         var price = Double.parseDouble(scanner.nextLine());
-        purchases.add(new Purchase(item, category, price));
+        budgetState.getPurchases().add(new Purchase(item, category, price));
+        budgetState.setBalance(Math.max(0, budgetState.getBalance() - price));
         printer.printInfo("Purchase was added!");
     }
 

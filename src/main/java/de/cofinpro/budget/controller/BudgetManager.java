@@ -1,10 +1,10 @@
 package de.cofinpro.budget.controller;
 
 import de.cofinpro.budget.io.ConsolePrinter;
-import de.cofinpro.budget.model.Purchase;
+import de.cofinpro.budget.io.StateSerializer;
+import de.cofinpro.budget.model.BudgetState;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -13,10 +13,8 @@ import java.util.Scanner;
  */
 public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
 
-
     static final String EMPTY_PURCHASES = "The purchase list is empty";
-    private final List<Purchase> purchases = new ArrayList<>();
-    private double incomeAdded;
+    private BudgetState budgetState = new BudgetState(new ArrayList<>());
 
     public BudgetManager(ConsolePrinter consolePrinter, Scanner scanner) {
         super(consolePrinter, scanner);
@@ -33,28 +31,34 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
 
     private void addIncome() {
         printer.printInfo("\nEnter income:");
-        incomeAdded += Double.parseDouble(scanner.nextLine());
+        budgetState.setBalance(budgetState.getBalance() + Double.parseDouble(scanner.nextLine()));
         printer.printInfo("Income was added!");
     }
 
     private void addPurchase() {
-        new AddPurchaseController(printer, scanner, purchases).run();
+        new AddPurchaseController(printer, scanner, budgetState).run();
     }
 
     private void showPurchases() {
-        if (purchases.isEmpty()) {
+        if (budgetState.getPurchases().isEmpty()) {
             printer.printInfo("\n{}", EMPTY_PURCHASES);
             return;
         }
-        new ShowPurchaseController(printer, scanner, purchases).run();
-    }
-
-    private double totalSpent() {
-        return purchases.stream().mapToDouble(Purchase::price).sum();
+        new ShowPurchaseController(printer, scanner, budgetState.getPurchases()).run();
     }
 
     private void showBalance() {
-        printer.printWithPrice("\nBalance:", Math.max(0, incomeAdded - totalSpent()));
+        printer.printWithPrice("\nBalance:", budgetState.getBalance());
+    }
+
+    private void saveState() {
+        new StateSerializer(printer).serialize(budgetState);
+        printer.printInfo("\nPurchases were saved!");
+    }
+
+    private void loadState() {
+        budgetState = new StateSerializer(printer).deserialize();
+        printer.printInfo("\nPurchases were loaded!");
     }
 
     @Override
@@ -66,6 +70,8 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
                 2) Add purchase
                 3) Show list of purchases
                 4) Balance
+                5) Save
+                6) Load
                 0) Exit""";
     }
 
@@ -75,7 +81,9 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
                 Choice.ADD_INCOME, this::addIncome,
                 Choice.ADD_PURCHASE, this::addPurchase,
                 Choice.SHOW_PURCHASES, this::showPurchases,
-                Choice.BALANCE, this::showBalance
+                Choice.BALANCE, this::showBalance,
+                Choice.SAVE, this::saveState,
+                Choice.LOAD, this::loadState
         ).get(choice);
     }
 
@@ -85,6 +93,6 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
     }
 
     protected enum Choice {
-        EXIT, ADD_INCOME, ADD_PURCHASE, SHOW_PURCHASES, BALANCE
+        EXIT, ADD_INCOME, ADD_PURCHASE, SHOW_PURCHASES, BALANCE, SAVE, LOAD
     }
 }

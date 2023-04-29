@@ -1,6 +1,7 @@
 package de.cofinpro.budget.controller;
 
 import de.cofinpro.budget.io.ConsolePrinter;
+import de.cofinpro.budget.model.BudgetState;
 import de.cofinpro.budget.model.Category;
 import de.cofinpro.budget.model.Purchase;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,20 +32,21 @@ class AddPurchaseControllerTest {
     private Scanner scannerMock;
 
     private AddPurchaseController addPurchaseController;
-    private List<Purchase> purchases;
+    private BudgetState budgetState;
 
 
     @BeforeEach
     void setUp() {
-        purchases = new ArrayList<>(List.of(new Purchase("shoes", Category.CLOTHES, 175.50)));
-        addPurchaseController = new AddPurchaseController(printerMock, scannerMock, purchases);
+        var purchases = new ArrayList<>(List.of(new Purchase("shoes", Category.CLOTHES, 175.50)));
+        budgetState = new BudgetState(purchases);
+        addPurchaseController = new AddPurchaseController(printerMock, scannerMock, budgetState);
     }
 
     @Test
     void whenBackChosen_purchasesUnchanged() {
         when(scannerMock.nextLine()).thenReturn("5"); //Back
         addPurchaseController.run();
-        assertEquals(1, purchases.size());
+        assertEquals(1, budgetState.getPurchases().size());
     }
 
     @Test
@@ -56,10 +58,10 @@ class AddPurchaseControllerTest {
         inOrder.verify(printerMock).printInfo("\nEnter purchase name:");
         inOrder.verify(printerMock).printInfo("Enter its price:");
         inOrder.verify(printerMock).printInfo("Purchase was added!");
-        assertEquals(2, purchases.size());
-        assertEquals(Category.CLOTHES, purchases.get(1).category());
-        assertEquals(56.79, purchases.get(1).price());
-        assertEquals("Blouse", purchases.get(1).item());
+        assertEquals(2, budgetState.getPurchases().size());
+        assertEquals(Category.CLOTHES, budgetState.getPurchases().get(1).category());
+        assertEquals(56.79, budgetState.getPurchases().get(1).price());
+        assertEquals("Blouse", budgetState.getPurchases().get(1).item());
     }
 
     static Stream<Arguments> whenChoiceGiven_categoryResolved() {
@@ -77,6 +79,6 @@ class AddPurchaseControllerTest {
         var action = addPurchaseController.getMenuAction(choice);
         when(scannerMock.nextLine()).thenReturn("Test", "1.0");
         action.run();
-        assertEquals(category, purchases.get(1).category());
+        assertEquals(category, budgetState.getPurchases().get(1).category());
     }
 }
