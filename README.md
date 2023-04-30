@@ -20,7 +20,7 @@ You can create your own personal budget manager that counts the ins and outs and
 
 ## Project completion
 
-[//]: # (Project was completed on 26.03.23.)
+Project was completed on 29.04.23.
 
 ## Repository Contents
 
@@ -40,3 +40,7 @@ Bump to Gradle 8.1.1 and Java 20.
 
 29.04.23 Stage 4 completed. Introduce BudgetState data class for application state. Serialize to file and
 deserialize on save and load menu options.
+
+29.04.23 Final Stage 5 completed. Add AnalyzeController to handle new Analyze-Menu Point, that allows filtered
+and sorted Purchase output and aggregation within Categories with an own submenu. Refactor ShowPurchaseController
+to factor out a PurchaseDisplayer used in both controllers.

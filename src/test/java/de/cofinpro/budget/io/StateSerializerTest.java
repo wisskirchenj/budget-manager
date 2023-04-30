@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +31,7 @@ class StateSerializerTest {
     @BeforeEach
     void setup() {
         serializer = new StateSerializer(null);
-        state = new BudgetState(List.of(new Purchase("shoes", Category.CLOTHES, 200.50)));
+        state = new BudgetState(new ArrayList<>(List.of(new Purchase("shoes", Category.CLOTHES, 200.50))));
         state.setBalance(500);
     }
 

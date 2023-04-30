@@ -61,6 +61,10 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
         printer.printInfo("\nPurchases were loaded!");
     }
 
+    private void analyze() {
+        new AnalyzeController(printer, scanner, budgetState.getPurchases()).run();
+    }
+
     @Override
     protected String getMenuText() {
         return """
@@ -72,6 +76,7 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
                 4) Balance
                 5) Save
                 6) Load
+                7) Analyze (Sort)
                 0) Exit""";
     }
 
@@ -83,7 +88,8 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
                 Choice.SHOW_PURCHASES, this::showPurchases,
                 Choice.BALANCE, this::showBalance,
                 Choice.SAVE, this::saveState,
-                Choice.LOAD, this::loadState
+                Choice.LOAD, this::loadState,
+                Choice.ANALYZE, this::analyze
         ).get(choice);
     }
 
@@ -92,7 +98,12 @@ public class BudgetManager extends MenuLoopController<BudgetManager.Choice> {
         return Choice.EXIT;
     }
 
+    @Override
+    protected int menuStartIndex() {
+        return 0;
+    }
+
     protected enum Choice {
-        EXIT, ADD_INCOME, ADD_PURCHASE, SHOW_PURCHASES, BALANCE, SAVE, LOAD
+        EXIT, ADD_INCOME, ADD_PURCHASE, SHOW_PURCHASES, BALANCE, SAVE, LOAD, ANALYZE
     }
 }

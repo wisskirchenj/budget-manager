@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @MockitoSettings
-class BudgetManagerIT {
+class BudgetManagerTest {
 
     @Mock
     Scanner scanner;
@@ -53,16 +53,16 @@ class BudgetManagerIT {
 
     @Test
     void whenPurchasesAdded_ShowListHasPurchasesInOrder() {
-        when(scanner.nextLine()).thenReturn("2", "2", "shoes", "1000.0", "1", "Apples", "15.15", "5", "3", "5", "6", "0");
+        when(scanner.nextLine()).thenReturn("2", "2", "shoes", "10.0", "1", "Apples", "15.15", "5", "3", "5", "6", "0");
         budgetManager.run();
         verifyMenuTimes(3);
         verify(consolePrinter, times(2)).printInfo("\nEnter purchase name:");
         verify(consolePrinter, times(2)).printInfo("Enter its price:");
         verify(consolePrinter, times(2)).printInfo("Purchase was added!");
-        verify(consolePrinter).printWithPrice("Total sum:", 1015.15);
+        verify(consolePrinter).printWithPrice("Total sum:", 25.15);
         InOrder inOrder = Mockito.inOrder(consolePrinter);
-        inOrder.verify(consolePrinter).printInfo(new Purchase("shoes", 1000.00).toString());
         inOrder.verify(consolePrinter).printInfo(new Purchase("Apples", 15.15).toString());
+        inOrder.verify(consolePrinter).printInfo(new Purchase("shoes", 10.00).toString());
     }
 
     @Test

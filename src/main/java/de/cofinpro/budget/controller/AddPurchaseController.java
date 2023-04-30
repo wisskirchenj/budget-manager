@@ -21,14 +21,7 @@ public class AddPurchaseController extends MenuLoopController<AddPurchaseControl
 
     @Override
     protected String getMenuText() {
-        return """
-                                  
-                Choose the type of purchase
-                1) Food
-                2) Clothes
-                3) Entertainment
-                4) Other
-                5) Back""";
+        return "\nChoose the type of purchase\n" + Category.SELECTION +"\n5) Back";
     }
 
     @Override
@@ -49,11 +42,6 @@ public class AddPurchaseController extends MenuLoopController<AddPurchaseControl
     @Override
     protected Choice getExitChoice() {
         return Choice.BACK;
-    }
-
-    @Override
-    protected int menuStartIndex() {
-        return 1;
     }
 
     protected enum Choice {

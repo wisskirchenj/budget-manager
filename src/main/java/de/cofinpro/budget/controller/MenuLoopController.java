@@ -58,9 +58,9 @@ abstract class MenuLoopController<E extends Enum<E>> {
     }
 
     /**
-     * start index for the menu. Default implementation here provides 0 (menu starts with 0) - but can be overridden.
+     * start index for the menu. Default implementation here provides 1 (menu starts with 1) - but can be overridden.
      */
     protected int menuStartIndex() {
-        return 0;
+        return 1;
     }
 }
